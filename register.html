@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            background-image: url("image1.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin: auto;
+            width: 50%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        table {
+            width: 100%;
+        }
+        td {
+            padding: 10px;
+        }
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="file"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        input[type="radio"] {
+            margin: 0 10px;
+        }
+        input[type="submit"], input[type="reset"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover, input[type="reset"]:hover {
+            background-color: #45a049;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Registration</h1>
+        <h4>Register | Login | Explore More!</h4>
+    </center>
+    
+    <div class="form-container">
+        <center>
+            <h2>New User</h2>
+            <form id="registrationForm" action="/register" method="POST" enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        <td><label for="username">Username:</label></td>
+                        <td><input type="text" id="username" name="username" placeholder="Enter your name" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="password">Password:</label></td>
+                        <td><input type="password" id="password" name="password" placeholder="Strong Password" required></td>
+                    </tr>
+                    <tr>
+                        <td>Gender:</td>
+                        <td>
+                            <input type="radio" id="male" name="gender" value="male" required> <label for="male">Male</label>
+                            <input type="radio" id="female" name="gender" value="female" required> <label for="female">Female</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="email">Email:</label></td>
+                        <td><input type="email" id="email" name="email" placeholder="Enter your Email" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="mobile">Mobile Number:</label></td>
+                        <td><input type="number" id="mobile" name="mobile" placeholder="Enter your Mobile Number" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="rcDocument">Upload your RC:</label></td>
+                        <td><input type="file" id="rcDocument" name="rcDocument" required></td>
+                    </tr>
+                    <tr>
+                        <td><input type="reset" value="Reset"></td>
+                        <td><input type="submit" value="Submit"></td>
+                    </tr>
+                </table>
+            </form>
+            <div id="message"></div> <!-- This is where the message will be displayed -->
+            <br>
+            <a href="index.html">Home</a>
+            <a href="https://www.bing.com/ck/a?!&&p=91c150fce78e9cd5JmltdHM9MTcxODE1MDQwMCZpZ3VpZD0xOTVmNGNjNy01ZmZlLTZjYTctMTg1NC01ZWUzNWU0YzZkNTYmaW5zaWQ9NTIxNg&ptn=3&ver=2&hsh=3&fclid=195f4cc7-5ffe-6ca7-1854-5ee35e4c6d56&psq=tamilnadhu+toll+charges&u=a1aHR0cDovL3RucmRjLmNvbS90b2xsLXJhdGVzLw&ntb=1">Toll Charges</a>
+        </center>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+            
+            const formData = new FormData(this);
+            
+            fetch('/register', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(message => {
+                document.getElementById('message').textContent = message;
+                this.reset(); // Optional: Reset the form after successful submission
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('message').textContent = "An error occurred while submitting the form.";
+            });
+        });
+    </script>
+</body>
+</html>
